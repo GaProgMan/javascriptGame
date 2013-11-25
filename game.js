@@ -53,40 +53,47 @@ var reset = function () {
 
 // Update the positions of all in game objects
 var update = function(deltaTime){
-	if(38 in keysDown){ 		// Captured an "Up" arrow key press
-		hero.y -= hero.speed * deltaTime;
-		if (hero.y <= 0){
-			hero.y = 0;
+	if (imageBackgroundReady && imageWarriorReady){
+		// Only do an actual update, if the images have been loaded.
+		if(38 in keysDown){ 		// Captured an "Up" arrow key press
+			hero.y -= hero.speed * deltaTime;
+			if (hero.y <= 0){
+				hero.y = 0;
+			}
+		}
+		if(40 in keysDown){			// Captured a "Down" arrow key press
+			if (hero.y + imageWarrior.height >= gameCanvas.height){
+				// If the current position of hero plus his height already
+				// falls outside of the canvas, don't allow him to move)
+				hero.y = (gameCanvas.height - imageWarrior.height);
+			}
+			else{
+				// Otherwise move the hero as normal
+				hero.y += hero.speed * deltaTime;
+			}
+		}
+		if(37 in keysDown){			// Captured a "Left" arrow key press
+			hero.x -= hero.speed * deltaTime;
+			if (hero.x <= 0) {
+				// Don't allow the hero to go off the canvas (left-hand side)
+				hero.x = 1;
+			}
+		}
+		if(39 in keysDown){			// Captured a "Right arrow key press
+			if (hero.x + imageWarrior.width >= gameCanvas.width){
+				// If the current position of hero plus his width already
+				// falls outside of the canvas, don't allow him to move)
+				hero.x = (gameCanvas.width - imageWarrior.width);
+			}
+			else{
+				// Otherwise move the hero as normal
+				hero.x += hero.speed * deltaTime;
+			}
 		}
 	}
-	if(40 in keysDown){			// Captured a "Down" arrow key press
-		if (hero.y + imageWarrior.height >= gameCanvas.height){
-			// If the current position of hero plus his height already
-			// falls outside of the canvas, don't allow him to move)
-			hero.y = (gameCanvas.height - imageWarrior.height);
-		}
-		else{
-			// Otherwise move the hero as normal
-			hero.y += hero.speed * deltaTime;
-		}
-	}
-	if(37 in keysDown){			// Captured a "Left" arrow key press
-		hero.x -= hero.speed * deltaTime;
-		if (hero.x <= 0) {
-			// Don't allow the hero to go off the canvas (left-hand side)
-			hero.x = 1;
-		}
-	}
-	if(39 in keysDown){			// Captured a "Right arrow key press
-		if (hero.x + imageWarrior.width >= gameCanvas.width){
-			// If the current position of hero plus his width already
-			// falls outside of the canvas, don't allow him to move)
-			hero.x = (gameCanvas.width - imageWarrior.width);
-		}
-		else{
-			// Otherwise move the hero as normal
-			hero.x += hero.speed * deltaTime;
-		}
+	else{
+		// Loading progress bar? Something to let the user know that
+		// we're loading the resources and will be back online soon
 	}
 };
 
