@@ -133,16 +133,6 @@ var update = function(deltaTime){
 			score+= deltaTime;
 			
 			checkPositions();
-			
-			// Is the hero touching the enemy?
-			if (hero.x <= (monster.x + 32) &&
-				monster.x <= (hero.x + 32) &&
-				hero.y <= (monster.y + 32) &&
-				monster.y <= (hero.y + 32))
-				{
-					// Yes
-					running = false;
-				}
 		}
 		else{
 			// Loading progress bar? Something to let the user know that
@@ -204,6 +194,16 @@ var checkPositions = function() {
 		// pixels will fall off-screen, that way)
 		monster.y = 0;
 	}
+	
+	// And now for collision detection with the enemy
+	if (hero.x <= (monster.x + 32) &&
+		monster.x <= (hero.x + 32) &&
+		hero.y <= (monster.y + 32) &&
+		monster.y <= (hero.y + 32))
+		{
+			// Yes - tell the render method to stop running
+			running = false;
+		}
 }
 
 
