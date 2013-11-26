@@ -3,3 +3,6 @@ Clover01 - current backdrop:
 
 hero-big & hero-small -	inspired by:
 	http://8bitcity.blogspot.co.uk/2011/12/unused-final-fantasy-nes-sprite.html
+
+Big Scary enemy:
+	http://opengameart.org/content/1-hour-lpc-enemy

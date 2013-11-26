@@ -25,11 +25,24 @@ imageWarrior.onload = function(){
 };
 imageWarrior.src = "images/hero-small.png";
 
+var imageMonsterReady = false;
+var imageMonster = new Image();
+imageMonster.onload = function(){
+	imageMonsterReady = true;
+};
+imageMonster.src = "images/monster.png";
+
 // In game objects
 var hero = {
 	speed : 256, // Movement in pixels per second
 	x : 0,		 // Default X location
 	y : 0		 // Default Y location
+}
+
+var monster = {
+	speed : 60,
+	x : 0,
+	y : 0
 }
 
 // Input handlers
@@ -55,13 +68,16 @@ addEventListener("keyup", function(e){
 var reset = function () {
 	hero.x = gameCanvas.width / 2;
 	hero.y = gameCanvas.height / 2;
+	
+	monster.x = gameCanvas.width / 4;
+	monster.y = gameCanvas.height / 4;
 };
 
 // Update the positions of all in game objects
 var update = function(deltaTime){
 	if (running) {
 		// If the game is running, then update the objects on screen
-		if (imageBackgroundReady && imageWarriorReady){
+		if (imageBackgroundReady && imageWarriorReady && imageMonsterReady){
 			// Only do an actual update, if the images have been loaded.
 			if(38 in keysDown){ 		// Captured an "Up" arrow key press
 				hero.y -= hero.speed * deltaTime;
@@ -98,6 +114,28 @@ var update = function(deltaTime){
 					hero.x += hero.speed * deltaTime;
 				}
 			}
+			
+			// Let's move the monster
+			var direction = Math.floor((Math.random()*4)+1);
+			switch (direction){
+				case 1:
+					// Up
+					monster.y -= monster.speed * deltaTime;
+					break;
+				case 2:
+					// Down
+					monster.y += monster.speed * deltaTime;
+					break;
+				case 3:
+					// Left
+					monster.x -= monster.speed * deltaTime;
+					break;
+				case 4:
+					// Right
+					monster.x += monster.speed * deltaTime;
+					break;
+			}
+			
 			if (19 in keysDown){
 				running = false;
 			}
@@ -105,6 +143,16 @@ var update = function(deltaTime){
 			// survived (i.e. not gotten caught by an enemy), we'll add the
 			// delta time number to it here
 			score+= deltaTime;
+			
+			// Is the hero touching the enemy?
+			if (hero.x <= (monster.x + 32) &&
+				monster.x <= (hero.x + 32) &&
+				hero.y <= (monster.y + 32) &&
+				monster.y <= (hero.y + 32))
+				{
+					// Yes
+					running = false;
+				}
 		}
 		else{
 			// Loading progress bar? Something to let the user know that
@@ -126,6 +174,9 @@ var render = function() {
 	if(imageWarriorReady){
 		// Only draw the hero image if we could load it from storage
 		gameCanvasContext.drawImage(imageWarrior, hero.x, hero.y);
+	}
+	if(imageMonsterReady){
+		gameCanvasContext.drawImage(imageMonster, monster.x, monster.y);
 	}
 	
 	// Score - number of seconds that the user has stayed alive
