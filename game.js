@@ -54,6 +54,17 @@ var score = 0;
 // Used to store whether the game is running or not
 var running = true;
 
+addEventListener("touchmove", function(e){
+	if(e.targetTouches.length == 1){
+		// Is there only 1 finger touching the screen
+		// within this context?
+		var touch = event.targetTouches[0];
+		// Place the hero where the touch is
+		hero.x = touch.pageX;
+		hero.y = touch.pageY;
+	}
+}, false);
+
 addEventListener("keydown", function(e){
 	// Capture a key down event (when the user presses a key)
 	keysDown[e.keyCode] = true;
@@ -81,38 +92,15 @@ var update = function(deltaTime){
 			// Only do an actual update, if the images have been loaded.
 			if(38 in keysDown){ 		// Captured an "Up" arrow key press
 				hero.y -= hero.speed * deltaTime;
-				if (hero.y <= 0){
-					hero.y = 0;
-				}
 			}
 			if(40 in keysDown){			// Captured a "Down" arrow key press
-				if (hero.y + imageWarrior.height >= gameCanvas.height){
-					// If the current position of hero plus his height already
-					// falls outside of the canvas, don't allow him to move)
-					hero.y = (gameCanvas.height - imageWarrior.height);
-				}
-				else{
-					// Otherwise move the hero as normal
-					hero.y += hero.speed * deltaTime;
-				}
+				hero.y += hero.speed * deltaTime;
 			}
 			if(37 in keysDown){			// Captured a "Left" arrow key press
 				hero.x -= hero.speed * deltaTime;
-				if (hero.x <= 0) {
-					// Don't allow the hero to go off the canvas (left-hand side)
-					hero.x = 1;
-				}
 			}
 			if(39 in keysDown){			// Captured a "Right arrow key press
-				if (hero.x + imageWarrior.width >= gameCanvas.width){
-					// If the current position of hero plus his width already
-					// falls outside of the canvas, don't allow him to move)
-					hero.x = (gameCanvas.width - imageWarrior.width);
-				}
-				else{
-					// Otherwise move the hero as normal
-					hero.x += hero.speed * deltaTime;
-				}
+				hero.x += hero.speed * deltaTime;
 			}
 			
 			// Let's move the monster
@@ -144,6 +132,8 @@ var update = function(deltaTime){
 			// delta time number to it here
 			score+= deltaTime;
 			
+			checkPositions();
+			
 			// Is the hero touching the enemy?
 			if (hero.x <= (monster.x + 32) &&
 				monster.x <= (hero.x + 32) &&
@@ -160,6 +150,61 @@ var update = function(deltaTime){
 		}
 	}
 };
+
+var checkPositions = function() {
+	// Used to check the positions of all on-screen objects.
+	// If they move off the canvas, we place them at the edge.
+	
+	// First, the hero
+	if (hero.x + imageWarrior.width >= gameCanvas.width){
+		// If the current position of hero plus his width already
+		// falls outside of the canvas, don't allow him to move
+		hero.x = (gameCanvas.width - imageWarrior.width);
+	}
+	if (hero.x <= 0){
+		// If the current x position of the hero is less
+		// than or equal to 0, set it to 1 (none of his
+		// pixels will fall off-screen, that way)
+		hero.x = 1;
+	}
+	if (hero.y + imageWarrior.height >= gameCanvas.height){
+		// If the current position of hero plus his height already
+		// falls outside of the canvas, don't allow him to move
+		hero.y = (gameCanvas.height - imageWarrior.height);
+	}
+	if(hero.y <= 0){
+		// If the current y position of the hero is less
+		// than or equal to 0, set it to 0 (none of his
+		// pixels will fall off-screen, that way)
+		hero.y = 0;
+	}
+	
+	// Now, the monster
+	if (monster.x + imageMonster.width >= gameCanvas.width){
+		// If the current position of monster plus his width already
+		// falls outside of the canvas, don't allow him to move 
+		monster.x = (gameCanvas.width - imageMonster.width);
+	}
+	
+	if (monster.x <= 0){
+		// If the current x position of the monster is less
+		// than or equal to 0, set it to 1 (none of his
+		// pixels will fall off-screen, that way)
+		monster.x = 1;
+	}
+	
+	if (monster.y + imageMonster.height >= gameCanvas.height){
+		// If the current position of monster plus his width already
+		// falls outside of the canvas, don't allow him to move 
+		monster.y = (gameCanvas.height - imageMonster.height);
+	}
+	if(monster.y <= 0){
+		// If the current y position of the monster is less
+		// than or equal to 0, set it to 0 (none of his
+		// pixels will fall off-screen, that way)
+		monster.y = 0;
+	}
+}
 
 
 // Rendering function
