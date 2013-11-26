@@ -196,10 +196,10 @@ var checkPositions = function() {
 	}
 	
 	// And now for collision detection with the enemy
-	if (hero.x <= (monster.x + 32) &&
-		monster.x <= (hero.x + 32) &&
-		hero.y <= (monster.y + 32) &&
-		monster.y <= (hero.y + 32))
+	if (hero.x <= (monster.x + imageMonster.width / 2) &&
+		monster.x <= (hero.x + imageWarrior.width / 2) &&
+		hero.y <= (monster.y + imageMonster.height / 2) &&
+		monster.y <= (hero.y + imageWarrior.height / 2))
 		{
 			// Yes - tell the render method to stop running
 			running = false;
