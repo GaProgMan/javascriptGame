@@ -24,8 +24,17 @@ var render = function() {
 	// Display the score (time alive) as a 2 decimal place number
 	gameCanvasContext.fillText("Score: " + score.toFixed(2), 32, 32);
 	
-	if (!running){
-		// Score - number of seconds that the user has stayed alive
+	if (gameOver){
+		// Game over yeaaaaaaaaah! - AM3
+		gameCanvasContext.fillStyle = "rgb(255, 0, 0)";
+		gameCanvasContext.font = "22px Helvetica";
+		gameCanvasContext.textAlign = "left";
+		gameCanvasContext.textBaseline = "top";
+		// Display the score (time alive) as a 2 decimal place number
+		gameCanvasContext.fillText("Game Over", (gameCanvas.width/2) - 50, gameCanvas.height/2);
+	}
+	else if (!running){
+		// User has paused the game
 		gameCanvasContext.fillStyle = "rgb(250, 255, 255)";
 		gameCanvasContext.font = "22px Helvetica";
 		gameCanvasContext.textAlign = "left";

@@ -31,7 +31,7 @@ var update = function(deltaTime){
 		delete keysDown[19];
 	}
 	
-	if (running) {			
+	if (running && !gameOver) {			
 		// If the game is running, then update the objects on screen
 		if (imageBackgroundReady && imageWarriorReady && imageMonsterReady){
 			// Only do an actual update, if the images have been loaded.
@@ -143,6 +143,6 @@ var checkPositions = function() {
 		monster.y <= (hero.y + imageWarrior.height / 2))
 		{
 			// Yes - tell the render method to stop running
-			running = false;
+			gameOver = true;
 		}
 }

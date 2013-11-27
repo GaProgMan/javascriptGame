@@ -50,6 +50,7 @@ var score = 0;
 
 // Used to store whether the game is running or not
 var running = true;
+var gameOver = false;
 
 // Starting from the beginning
 var reset = function () {
