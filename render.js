@@ -30,7 +30,7 @@ var render = function() {
 		gameCanvasContext.font = "22px Helvetica";
 		gameCanvasContext.textAlign = "left";
 		gameCanvasContext.textBaseline = "top";
-		// Display the score (time alive) as a 2 decimal place number
+		// Display the Game Over message
 		gameCanvasContext.fillText("Game Over", (gameCanvas.width/2) - 50, gameCanvas.height/2);
 	}
 	else if (!running){
@@ -39,7 +39,7 @@ var render = function() {
 		gameCanvasContext.font = "22px Helvetica";
 		gameCanvasContext.textAlign = "left";
 		gameCanvasContext.textBaseline = "top";
-		// Display the score (time alive) as a 2 decimal place number
+		// Display the Paused message
 		gameCanvasContext.fillText("Paused", (gameCanvas.width/2) - 20, gameCanvas.height/2);
 	}
 };
