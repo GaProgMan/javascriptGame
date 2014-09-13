@@ -51,8 +51,9 @@ var update = function(deltaTime){
 			// Let's move the monster
 			// Multiply the vector between the monster and the hero
 			// by the monster speed plus the detla from the last frame
-			monster.x += (hero.x - monster.x) * (monster.speed + deltaTime);
-			monster.y += (hero.y - monster.y) * (monster.speed + deltaTime);
+			monster.x += (hero.x - monster.x) * (monster.speed * deltaTime);
+			monster.y += (hero.y - monster.y) * (monster.speed * deltaTime);
+
 			score+= deltaTime;
 			
 			checkPositions();
