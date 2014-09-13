@@ -34,9 +34,10 @@ imageMonster.src = "images/monster.png";
 
 // In game objects
 var hero = {
-	speed : 256, // Movement in pixels per second
-	x : 0,		 // Default X location
-	y : 0		 // Default Y location
+	speed : 256,	 // Movement in pixels per second
+	x : 0,			 // Default X location
+	y : 0,			 // Default Y location
+	moving : false	 // Whether the hero is moving or not
 }
 
 var monster = {

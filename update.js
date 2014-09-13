@@ -34,18 +34,28 @@ var update = function(deltaTime){
 	if (running && !gameOver) {			
 		// If the game is running, then update the objects on screen
 		if (imageBackgroundReady && imageWarriorReady && imageMonsterReady){
+			// The hero isn't moving just yet
+			hero.moving = false;
+
 			// Only do an actual update, if the images have been loaded.
 			if(38 in keysDown){ 		// Captured an "Up" arrow key press
 				hero.y -= hero.speed * deltaTime;
+				hero.moving = true;
 			}
+
 			if(40 in keysDown){			// Captured a "Down" arrow key press
 				hero.y += hero.speed * deltaTime;
+				hero.moving = true;
 			}
+
 			if(37 in keysDown){			// Captured a "Left" arrow key press
 				hero.x -= hero.speed * deltaTime;
+				hero.moving = true;
 			}
+
 			if(39 in keysDown){			// Captured a "Right arrow key press
 				hero.x += hero.speed * deltaTime;
+				hero.moving = true;
 			}
 			
 			// Let's move the monster
@@ -55,6 +65,25 @@ var update = function(deltaTime){
 			monster.y += (hero.y - monster.y) * (monster.speed * deltaTime);
 
 			score+= deltaTime;
+
+			// Hero becomes more fatigued with each increase of score
+			if (hero.moving == true) {
+				if (hero.speed > 0) hero.speed -= (deltaTime / 10);
+			}
+			else{
+				// Hero is resting, he feels less fatigued
+				if (hero.speed < 255) hero.speed += (deltaTime * 0.1);
+			}
+			// Monster becomes more determined as the score increases
+			// until a set limit
+			if (monster.speed < 5) {
+				monster.speed += (deltaTime / 10);
+			}
+			else {
+				monster.speed = 0.5;
+			}
+			console.log("Hero speed: " + hero.speed);
+			console.log("Monster speed: " + monster.speed);
 			
 			checkPositions();
 		}
