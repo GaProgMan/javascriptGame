@@ -49,28 +49,10 @@ var update = function(deltaTime){
 			}
 			
 			// Let's move the monster
-			var direction = Math.floor((Math.random()*4)+1);
-			switch (direction){
-				case 1:
-					// Up
-					monster.y -= monster.speed * deltaTime;
-					break;
-				case 2:
-					// Down
-					monster.y += monster.speed * deltaTime;
-					break;
-				case 3:
-					// Left
-					monster.x -= monster.speed * deltaTime;
-					break;
-				case 4:
-					// Right
-					monster.x += monster.speed * deltaTime;
-					break;
-			}
-			// Since the score is the number of seconds that the player has
-			// survived (i.e. not gotten caught by an enemy), we'll add the
-			// delta time number to it here
+			// Multiply the vector between the monster and the hero
+			// by the monster speed plus the detla from the last frame
+			monster.x += (hero.x - monster.x) * (monster.speed + deltaTime);
+			monster.y += (hero.y - monster.y) * (monster.speed + deltaTime);
 			score+= deltaTime;
 			
 			checkPositions();
