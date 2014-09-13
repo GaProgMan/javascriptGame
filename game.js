@@ -40,7 +40,7 @@ var hero = {
 }
 
 var monster = {
-	speed : 0.01,
+	speed : 0.50,
 	x : 0,
 	y : 0
 }
