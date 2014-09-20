@@ -2,7 +2,7 @@
 
 Run Away is a Javascript/HTML5 game where the player must run away from the enemies.
 
-The hero of the game ![Player image](https://github.com/GaProgMan/javascriptGame/blob/master/images/hero-small.png "Hero") descides to go on a walk through the forest, when he is suddenly cornered by monster ![enemy image](https://github.com/GaProgMan/javascriptGame/blob/master/images/monster.png "Enemy"). The monster wants to eat the hero... because plot.
+The hero of the game ![Player image](https://github.com/GaProgMan/javascriptGame/blob/master/images/hero-small.png "Hero") descides to go on a walk through the forest, when he is suddenly cornered by monster ![enemy image](https://github.com/GaProgMan/javascriptGame/blob/master/images/monster.png "Enemy"). The monster wants to eat the hero... because that;s how video games work.
 
 Monsters are known to give chase at full speed for a short time before they become fatigued and must slow down. This is the key to the hero's survival: learn the pattern of the monster's fatigue level, and the hero will survive.
 
