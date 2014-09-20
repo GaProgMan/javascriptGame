@@ -2,7 +2,7 @@
 var gameCanvas = document.createElement("canvas");
 var gameCanvasContext = gameCanvas.getContext("2d");
 gameCanvas.width = 512;
-gameCanvas.height = 480;
+gameCanvas.height = 512;
 
 // Add the canvas to the page
 document.body.appendChild(gameCanvas);
